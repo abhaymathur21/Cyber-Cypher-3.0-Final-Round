@@ -6,7 +6,6 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense
-
 with open("order.json", "r") as file:
     orders = json.load(file)
     
@@ -69,7 +68,9 @@ model.compile(optimizer='adam', loss='mean_squared_error')
 model.fit(X_train, y_train, epochs=50, batch_size=32, validation_data=(X_test, y_test), verbose=1)
 
 # Make predictions
-predictions = model.predict(X_test)
+predictions = model.predict(X_test)*4000
+predictions = np.ceil(predictions)
+predictions = np.abs(predictions)
 
 # Evaluate the model
 mse = mean_squared_error(y_test, predictions)
