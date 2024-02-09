@@ -1,3 +1,5 @@
+import { Product } from "./types";
+
 export const links = [
   {
     label: "Fashion",
@@ -69,15 +71,6 @@ export const links = [
     children: [],
   },
 ] as const;
-
-export type Product = {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  category: string;
-  stock: number;
-};
 
 export type ProductFilters =
   | (typeof links)[number]["label"]

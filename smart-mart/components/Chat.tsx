@@ -23,14 +23,14 @@ const Chat = () => {
   });
 
   return (
-    <Card className="grid grid-rows-[auto_1fr_auto]">
+    <Card className="grid grid-rows-[auto_1fr_auto] border-2">
       <CardHeader className="p-4">
         <CardTitle className="flex gap-4 text-secondary">
           <Image src="/chat.svg" alt="Chat" width={32} height={32} />
           AI Agent
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col justify-end gap-2 border p-2">
+      <CardContent className="flex flex-col justify-end gap-2 border-y-2 p-2">
         <CardDescription className={chatVariant({ variant: "agent" })}>
           Hi there! How can I help you today?
         </CardDescription>
