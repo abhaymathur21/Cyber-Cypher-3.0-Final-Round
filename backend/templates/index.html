@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop</title>
+  </head>
+  <body>
+    <h1>Shop</h1>
+
+    <label for="productInput">Search for products:</label>
+    <input
+      type="text"
+      id="productInput"
+      name="productInput"
+      list="productList"
+      style="width: 21.4rem"
+    />
+    <datalist id="productList"></datalist>
+    <br />
+    <br />
+    <label for="searchInput"
+      >Enter product quantities (separated by commas):</label
+    >
+    <input type="text" id="quantityInput" name="quantityInput" />
+    <br />
+    <br />
+    <button id="buyButton">Buy</button>
+    <br />
+    <br />
+    <!-- Text box for string input -->
+    <label for="stringInput">Enter a string:</label>
+    <input type="text" id="stringInput" name="stringInput" />
+    <button id="sendStringButton">Send</button>
+    <br />
+    <br />
+    <div id="resultContainer"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Event listener for the send string button
+        document.getElementById('sendStringButton').addEventListener('click', function() {
+            var inputString = document.getElementById('stringInput').value;
+
+            fetch('http://localhost:5000/send_string', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ "string": inputString }), // Include string input in the request body
+            })
+            .then(response => response.text())
+            .then(result => {   
+                document.getElementById('resultContainer').innerText = result;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+        // Function to fetch product suggestions
+        function fetchProductSuggestions(input) {
+          // Make a request to your server to get product suggestions based on the input
+          // You need to implement a route on your server to handle this request
+          // Replace the URL with the actual endpoint of your server
+          fetch(`http://localhost:5000/product-suggestions?input=${input}`)
+            .then((response) => response.json())
+            .then((data) => {
+              // Update the datalist with product suggestions
+              const dataList = document.getElementById("productList");
+              dataList.innerHTML = "";
+              data.forEach((product) => {
+                const option = document.createElement("option");
+                option.value = `${product.name}`;
+                dataList.appendChild(option);
+              });
+            })
+            .catch((error) => {
+              console.error("Error fetching product suggestions:", error);
+            });
+        }
+
+        // Event listener for product input field
+        const productInput = document.getElementById("productInput");
+        productInput.addEventListener("input", function () {
+          const inputValue = productInput.value;
+          fetchProductSuggestions(inputValue);
+        });
+
+        // Event listener for Buy button
+        document
+          .getElementById("buyButton")
+          .addEventListener("click", function () {
+            var inputProduct = productInput.value;
+            var inputQuantity = document.getElementById("quantityInput").value;
+
+            fetch("http://localhost:5000/search", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                product: inputProduct,
+                quantity: inputQuantity,
+              }),
+            })
+              .then((response) => response.text())
+              .then((result) => {
+                document.getElementById("resultContainer").innerText = result;
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+          });
+      });
+    </script>
+  </body>
+</html>

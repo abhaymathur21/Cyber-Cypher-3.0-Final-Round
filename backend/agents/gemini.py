@@ -47,3 +47,4 @@ prompt_parts = [
 
 response = model.generate_content(prompt_parts)
 print(response.text)
+product, quantity = response.text.split(',')

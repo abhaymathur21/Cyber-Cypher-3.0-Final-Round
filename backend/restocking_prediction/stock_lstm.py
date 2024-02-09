@@ -8,7 +8,7 @@ from sklearn.metrics import mean_squared_error
 from keras.models import Sequential
 from keras.layers import LSTM, Dense
 
-data = pd.read_json("orders.json").to_dict(orient="records")
+data = pd.read_json(r"C:\Users\a21ma\OneDrive\Desktop\Cyber Cypher 3.0 (Final Round)\data\orders.json").to_dict(orient="records")
 data = pd.json_normalize(data, "products", ["order_id", "date"])
 data["date"] = pd.to_datetime(data["date"])
 data["month"] = (data["date"] - pd.to_datetime("2023-01-01")).dt.days // 30 + 1
@@ -80,3 +80,11 @@ predictions = np.abs(predictions)
 mse = mean_squared_error(y_test, model.predict(X_test))
 print(f"Mean Squared Error: {mse}")
 print(f"Prediction: {predictions}")
+
+predictions = predictions.reshape(-1)
+# Convert predictions to a DataFrame
+predictions_df = pd.DataFrame({"id": data["id"].unique(), "predicted_quantity": predictions.astype(int)})
+print(predictions_df)
+predictions_df.to_csv("stock_predictions.csv", index=False)
+
+print("Predictions saved to predictions.csv")
