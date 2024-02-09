@@ -64,7 +64,7 @@ n = int(sys.argv[1])
 orders = generate_orders(data, n=n)
 
 data = pd.DataFrame(orders)
-data.to_json("orders.json", orient="records", indent=2)
+data.to_json(r"C:\Users\a21ma\OneDrive\Desktop\Cyber Cypher 3.0 (Final Round)\data\orders.json", orient="records", indent=2)
 
 print(f"Generated {n} orders")
 

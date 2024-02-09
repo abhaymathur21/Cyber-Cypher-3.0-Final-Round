@@ -1,0 +1,26 @@
+id,name,price,description,category,brand,stock
+1,Smartphone X23,699.99,The latest flagship smartphone with a stunning display and advanced camera features.,Electronics,Brand A,48
+2,Laptop ProBook 15,1199.99,Powerful laptop for professionals with a sleek design and long-lasting battery.,Electronics,Brand B,20
+3,Cotton T-Shirt,19.99,Comfortable and stylish cotton t-shirt available in various colors and sizes.,Apparel,Brand C,100
+4,Leather Wallet,39.99,Handcrafted leather wallet with multiple card slots and RFID protection.,Accessories,Brand D,30
+5,Wireless Earbuds,79.99,High-quality wireless earbuds with noise-cancellation and long battery life.,Electronics,Brand E,60
+6,Fitness Tracker Watch,49.99,Stay fit and active with this feature-rich fitness tracker watch.,Electronics,Brand F,25
+7,Organic Coffee Beans,12.99,Premium organic coffee beans sourced from sustainable farms.,Food & Beverages,Brand G,80
+8,Bluetooth Speaker,59.99,Portable Bluetooth speaker with 360-degree sound and water resistance.,Electronics,Brand H,40
+9,Scented Soy Candle,24.99,Hand-poured scented soy candle with a soothing fragrance.,Home & Living,Brand I,35
+10,Men's Leather Jacket,199.99,Stylish and durable men's leather jacket for all seasons.,Apparel,Brand J,15
+11,Digital Camera,499.99,High-resolution digital camera with advanced image stabilization.,Electronics,Brand K,18
+12,Reusable Water Bottle,14.99,Eco-friendly reusable water bottle made from stainless steel.,Accessories,Brand L,90
+13,Wireless Gaming Mouse,79.99,Precision gaming mouse with customizable RGB lighting.,Electronics,Brand M,22
+14,Women's Running Shoes,89.99,Comfortable and supportive running shoes for women.,Footwear,Brand N,30
+15,Portable Power Bank,39.99,Compact and high-capacity power bank for charging on-the-go.,Electronics,Brand O,50
+16,Stainless Steel Kitchen Set,129.99,Complete kitchen set made from durable stainless steel.,Home & Kitchen,Brand P,10
+17,Gaming Headset,69.99,Immersive gaming headset with noise-cancellation and surround sound.,Electronics,Brand Q,25
+18,Eco-Friendly Bamboo Toothbrush,9.99,Biodegradable and sustainable toothbrush made from bamboo.,Personal Care,Brand R,120
+19,Professional Chef's Knife,89.99,Premium-quality chef's knife for culinary experts.,Home & Kitchen,Brand S,15
+20,HD Smart TV,799.99,Smart TV with high-definition display and streaming capabilities.,Electronics,Brand T,8
+21,Hiking Backpack,79.99,Durable and spacious hiking backpack with multiple compartments.,Outdoor Gear,Brand U,40
+22,Noise-Canceling Headphones,149.99,Premium noise-canceling headphones for a distraction-free experience.,Electronics,Brand V,30
+23,Scented Bath Bombs,14.99,Relaxing scented bath bombs for a spa-like experience at home.,Personal Care,Brand W,70
+24,Automatic Espresso Machine,399.99,Semi-automatic espresso machine for coffee enthusiasts.,Appliances,Brand X,12
+25,Yoga Mat,29.99,Non-slip and eco-friendly yoga mat for a comfortable workout.,Fitness & Sports,Brand Y,20
