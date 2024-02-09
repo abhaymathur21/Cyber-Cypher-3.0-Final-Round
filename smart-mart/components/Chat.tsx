@@ -14,6 +14,7 @@ import { cva } from "class-variance-authority";
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+// import { No } from "lucide-react";
 
 const Chat = () => {
   const [messages, setMessages] = useState<
@@ -28,7 +29,7 @@ const Chat = () => {
   const chatVariant = cva("max-w-[90%] rounded-md p-2 text-pretty", {
     variants: {
       variant: {
-        user: " bg-primary text-white rounded-br-none ml-auto",
+        user: "bg-primary text-white rounded-br-none ml-auto",
         agent: "bg-secondary text-gray-950 rounded-bl-none mr-auto",
       },
     },
@@ -49,6 +50,15 @@ const Chat = () => {
       body: JSON.stringify({ string: input }),
     });
     const data = await response.text();
+
+    if (data === "Invalid response") {
+      setMessages((prev) => [
+        ...prev,
+        { user: "agent", message: "Sorry, I didn't understand that" },
+      ]);
+      return;
+    }
+
     const products = data.split("\n").map((product) => {
       const [id, name] = product.split("-").map((item) => item.trim());
       return { name, id };
@@ -56,18 +66,21 @@ const Chat = () => {
     const agent_message = `I found ${products.length} products for you! Here are some of them: ${products.map((product) => product.name).join(",\n")}`;
     setMessages((prev) => [...prev, { user: "agent", message: agent_message }]);
     const ids = products.map((product) => product.id).join(",");
-    router.push(`/search?id=${ids}`);
+    router.push(`/?id=${ids}`);
   };
 
   return (
-    <Card className="grid grid-rows-[auto_1fr_auto] border-2">
+    <Card className="grid h-full grid-rows-[auto_1fr_auto] overflow-hidden border-2">
       <CardHeader className="p-4">
         <CardTitle className="flex gap-4 text-secondary">
           <Image src="/chat.svg" alt="Chat" width={32} height={32} />
           AI Agent
+          {/* <Button variant="ghost" className="ml-auto">
+            <Image src="/close.svg" alt="Close" width={32} height={32} />
+          </Button> */}
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col justify-end gap-2 border-y-2 p-2">
+      <CardContent className="flex h-full flex-col justify-end gap-2 overflow-y-auto border-y-2 p-2">
         {messages.map((message, index) => (
           <CardDescription
             key={index}
