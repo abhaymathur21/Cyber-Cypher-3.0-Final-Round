@@ -71,7 +71,7 @@ async def handle_message(ctx:Context,sender:str, msg: Message):
                 #     await ctx.send("agent1qfhsacmleeygp9qhpnsyjnsmj36el3far8k6vpep5t8uuxupnhus7t40wv8", Message(product=input_names_with_size[i],quantity=data['Quantity'])) #goes to alert agent
                     
                 newQuantity = data_quantity - input_quantity
-                data['Quantity'] = newQuantity
+                data['stock'] = newQuantity
                 
                 restock_quantity = math.ceil(predicted_product_stock - newQuantity)
                 
@@ -102,8 +102,8 @@ async def handle_message(ctx:Context,sender:str, msg: Message):
                     # Write the updated data
                     csv_writer.writerows(csv_data)
                 
-                print("New Quantity: ",data['Quantity']) 
-                if data['Quantity'] < min_stock:
+                print("New Quantity: ",data['stock']) 
+                if data['stock'] < min_stock:
                     # print('Low stock after buying')
                     await ctx.send("agent1qfhsacmleeygp9qhpnsyjnsmj36el3far8k6vpep5t8uuxupnhus7t40wv8", Message(product=input_names_with_size[i],quantity=restock_quantity)) # goes to alert agent
 
