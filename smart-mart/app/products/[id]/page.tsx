@@ -7,7 +7,7 @@ import user from "@/data/user.json";
 import Image from "next/image";
 import Link from "next/link";
 
-const ProductPage = ({ params: { id } }: { params: { id: string } }) => {
+const ProductPage = async ({ params: { id } }: { params: { id: string } }) => {
   const product = products.find((product) => product.id === parseInt(id));
   if (!product)
     return <div className="mt-8 text-center text-2xl">Product not found</div>;
@@ -15,6 +15,18 @@ const ProductPage = ({ params: { id } }: { params: { id: string } }) => {
   const rating = Math.random() * 5;
 
   const cart = user.cart;
+
+  const recommended = await fetch("http://localhost:5000/recommend", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id: product.id }),
+  }).then((res) => res.json());
+
+  const recommendedProducts = recommended["recommended_items"].map(
+    (id: string) => products.find((product) => product.id === parseInt(id)),
+  );
 
   return (
     <div className="grid grid-cols-2 gap-4">
@@ -57,6 +69,8 @@ const ProductPage = ({ params: { id } }: { params: { id: string } }) => {
             />
           )}
         </div>
+
+        <div></div>
       </div>
     </div>
   );

@@ -1,4 +1,6 @@
-import LinePlot from "@/components/graphs/PopularProductBar";
+import LinePlot from "@/components/graphs/SalesLinePlot";
+import products from "@/data/products.json";
+import orders from "@/data/orders.json";
 
 const Admin = () => {
   return (
