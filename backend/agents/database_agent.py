@@ -6,9 +6,9 @@ import json
 import csv
 import math
 
-json_file_path = r'C:\Users\a21ma\OneDrive\Desktop\Cyber Cypher 3.0 (Final Round)\data\products.json'
-csv_file_path = r'C:\Users\a21ma\OneDrive\Desktop\Cyber Cypher 3.0 (Final Round)\data\products.csv'
-json_file_path2 = r'C:\Users\a21ma\OneDrive\Desktop\Cyber Cypher 3.0 (Final Round)\data\stock_predictions.json'
+json_file_path = 'data/products.json'
+csv_file_path = 'data/products.csv'
+json_file_path2 = 'data/stock_predictions.json'
 
 #Reading the data from the json file:
 with open(json_file_path, 'r') as json_file:

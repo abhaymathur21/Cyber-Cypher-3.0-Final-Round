@@ -4,7 +4,7 @@ from mlxtend.frequent_patterns import association_rules
 import pandas as pd
 import json
 
-with open(r"C:\Users\a21ma\OneDrive\Desktop\Cyber Cypher 3.0 (Final Round)\data\orders.json", "r") as file:
+with open("data/orders.json", "r") as file:
     orders = json.load(file)
 
 transactions = []
