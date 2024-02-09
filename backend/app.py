@@ -110,7 +110,7 @@ def recommend():
     return jsonify({'recommended_items': list(recommended_items)})
 
 @app.route('/personal_recommend', methods=['POST'])
-def recommend():
+def personal_recommend():
     # Extract user input from the request
     product_id = request.get_json().get('id')
 
