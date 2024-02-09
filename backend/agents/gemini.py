@@ -78,7 +78,7 @@ async def llm_model(input_string, products_data):
       f'''
       {products_data}
       
-      Given the above products data, recommend ONLY product name and id from the data that user should buy if given user input: {input_string}
+      Given the above product data, give ONLY product name and id of the product that you recommend the user to buy. Give it in a string format where the id is separated by the name by '-' and id comes first. The given user input: {input_string}
       '''
       ]
       
