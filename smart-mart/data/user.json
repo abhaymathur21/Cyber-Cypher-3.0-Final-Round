@@ -1,0 +1,15 @@
+{
+  "name": "Devansh Rathor",
+  "email": "devanshrathor123@gmail.com",
+  "cart": [
+    {
+      "id": 2,
+      "quantity": 1
+    },
+    {
+      "id": 3,
+      "quantity": 1
+    }
+  ],
+  "orders": []
+}

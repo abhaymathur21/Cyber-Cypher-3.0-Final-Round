@@ -1,17 +1,16 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import Navbar from "@/components/Navbar";
-import { cn } from "@/lib/utils";
-import Image from "next/image";
-import { Input } from "@/components/ui/input";
-import Link from "next/link";
-import { Label } from "@/components/ui/label";
-import { ShoppingCartIcon, SearchIcon } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import CartCount from "@/components/CartCount";
 import Chat from "@/components/Chat";
+import Navbar from "@/components/Navbar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import { SearchIcon, ShoppingCartIcon } from "lucide-react";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import Image from "next/image";
+import Link from "next/link";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
