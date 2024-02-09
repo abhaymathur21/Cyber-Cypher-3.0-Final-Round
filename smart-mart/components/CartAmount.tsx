@@ -22,8 +22,8 @@ const CartAmount = ({ id, quantity }: { id: number; quantity: number }) => {
         min={1}
         max={99}
         value={quantity}
+        className="flex aspect-square w-fit p-0 pl-3 text-center font-mono"
         readOnly
-        className="flex aspect-square p-0 pl-3 text-center font-mono"
       />
       <Button
         onClick={() => IncrementQuantity(id)}

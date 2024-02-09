@@ -32,7 +32,9 @@ const ProductCard = ({ product }: { product: Product }) => {
             className="aspect-video w-full place-self-center rounded-t-md object-cover object-center"
           />
 
-          <CardTitle className="px-6 py-4 text-lg">{product.name}</CardTitle>
+          <CardTitle className="h-[3lh] px-6 py-4 text-lg">
+            {product.name}
+          </CardTitle>
         </CardHeader>
       </Link>
       <CardContent>
