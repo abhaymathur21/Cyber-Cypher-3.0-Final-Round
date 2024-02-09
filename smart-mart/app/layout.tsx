@@ -11,6 +11,7 @@ import { Inter } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import "./globals.css";
+import products from "@/data/products.json";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -47,11 +48,21 @@ export default function RootLayout({
 
           <Navbar />
 
-          <form className="ml-auto flex w-96 items-center gap-2">
-            <Input id="search" placeholder="Search" />
+          <form
+            className="ml-auto flex w-96 items-center gap-2"
+            action="/"
+            method="get"
+          >
+            <Input id="search" placeholder="Search" name="q" list="products" />
             <Button type="submit" variant="ghost" className="aspect-square p-2">
               <SearchIcon size={28} />
             </Button>
+
+            <datalist id="products">
+              {products.map((product) => (
+                <option key={product.id} value={product.name} />
+              ))}
+            </datalist>
           </form>
 
           <div className="relative flex items-center gap-8">
