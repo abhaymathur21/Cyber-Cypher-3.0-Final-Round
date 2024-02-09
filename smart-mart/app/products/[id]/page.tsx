@@ -19,17 +19,22 @@ const ProductPage = async ({ params: { id } }: { params: { id: string } }) => {
 
   const cart = user.cart;
 
-  const recommended = await fetch("http://localhost:5000/recommend", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ id: product.id }),
-  }).then((res) => res.json());
+  let recommendedProducts: Product[] = [];
+  try {
+    const recommended = await fetch("http://localhost:5000/recommend", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: product.id }),
+    }).then((res) => res.json());
 
-  const recommendedProducts = recommended["recommended_items"].map(
-    (id: string) => products.find((product) => product.id === parseInt(id)),
-  ) as Product[];
+    recommendedProducts = recommended["recommended_items"].map((id: string) =>
+      products.find((product) => product.id === parseInt(id)),
+    ) as Product[];
+  } catch (error) {
+    console.error(error);
+  }
 
   return (
     <div className="grid grid-cols-[2fr_3fr] gap-4 overflow-auto pr-4">
