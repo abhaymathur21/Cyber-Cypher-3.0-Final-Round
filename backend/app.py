@@ -109,5 +109,16 @@ def recommend():
     # Return the recommended items as a JSON response
     return jsonify({'recommended_items': list(recommended_items)})
 
+@app.route('/personal_recommend', methods=['POST'])
+def recommend():
+    # Extract user input from the request
+    product_id = request.get_json().get('id')
+
+    # Call the recommend_items function to get recommendations
+    recommended_items = recommend_items(product_id, rules)
+    print(recommended_items)
+    # Return the recommended items as a JSON response
+    return jsonify({'recommended_items': list(recommended_items)})
+
 if __name__ == '__main__':
     app.run(debug=True)
