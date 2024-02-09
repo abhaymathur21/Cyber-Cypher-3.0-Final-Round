@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -6,18 +7,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-import CartAdd from "./CartAdd";
-import CartAmount from "./CartAmount";
-import Image from "next/image";
-
-import { Product } from "@/lib/types";
-
 import user from "@/data/user.json";
+import { Product } from "@/lib/types";
+import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import CartAdd from "./CartAdd";
+import { cn } from "@/lib/utils";
 
-const ProductCard = ({ product }: { product: Product }) => {
+const ProductCard = ({
+  product,
+  small,
+}: {
+  product: Product;
+  small?: boolean;
+}) => {
   const cart = user.cart;
 
   return (
@@ -27,8 +30,8 @@ const ProductCard = ({ product }: { product: Product }) => {
           <Image
             src={`https://picsum.photos/seed/${product.id}/300/300`}
             alt={product.name}
-            width={300}
-            height={300}
+            width={small ? 200 : 300}
+            height={small ? 200 : 300}
             className="aspect-video w-full place-self-center rounded-t-md object-cover object-center"
           />
 
@@ -42,17 +45,20 @@ const ProductCard = ({ product }: { product: Product }) => {
           {product.description}
         </CardDescription>
       </CardContent>
-      <CardFooter className="flex justify-between">
+      <CardFooter className="flex justify-between text-sm">
         <span>${product.price}</span>
         {cart.some((item) => item.id === product.id) ? (
           <Button
             variant="outline"
-            className="border-2 text-gray-950 hover:bg-primary hover:text-accent"
+            className={cn(
+              "border-2 text-gray-950 hover:bg-primary hover:text-accent",
+              small && "text-xs",
+            )}
           >
             <Link href="/cart">View in Cart</Link>
           </Button>
         ) : (
-          <CartAdd id={product.id} />
+          <CartAdd id={product.id} className={cn(small && "p-2 text-xs")} />
         )}
       </CardFooter>
     </Card>

@@ -1,3 +1,6 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -6,13 +9,22 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
-import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority";
+import Image from "next/image";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Chat = () => {
+  const [messages, setMessages] = useState<
+    {
+      user: "agent" | "user";
+      message: string;
+    }[]
+  >([{ user: "agent", message: "Hi there! How can I help you today?" }]);
+
+  const [input, setInput] = useState("");
+
   const chatVariant = cva("max-w-[90%] rounded-md p-2 text-pretty", {
     variants: {
       variant: {
@@ -21,6 +33,31 @@ const Chat = () => {
       },
     },
   });
+
+  const router = useRouter();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setMessages((prev) => [...prev, { user: "user", message: input }]);
+    setInput("");
+    console.log("sent message to server: ", input);
+
+    const response = await fetch("http://localhost:5000/llm_input", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ string: input }),
+    });
+    const data = await response.text();
+    const products = data.split("\n").map((product) => {
+      const [id, name] = product.split("-").map((item) => item.trim());
+      return { name, id };
+    });
+    const agent_message = `I found ${products.length} products for you! Here are some of them: ${products.map((product) => product.name).join(",\n")}`;
+    setMessages((prev) => [...prev, { user: "agent", message: agent_message }]);
+    const ids = products.map((product) => product.id).join(",");
+    router.push(`/search?id=${ids}`);
+  };
 
   return (
     <Card className="grid grid-rows-[auto_1fr_auto] border-2">
@@ -31,20 +68,28 @@ const Chat = () => {
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col justify-end gap-2 border-y-2 p-2">
-        <CardDescription className={chatVariant({ variant: "agent" })}>
-          Hi there! How can I help you today?
-        </CardDescription>
-
-        <CardDescription className={chatVariant({ variant: "user" })}>
-          I need help with my order.
-        </CardDescription>
+        {messages.map((message, index) => (
+          <CardDescription
+            key={index}
+            className={chatVariant({ variant: message.user })}
+          >
+            {message.message}
+          </CardDescription>
+        ))}
       </CardContent>
       <CardFooter className="p-4">
-        <form className="relative grid w-full">
-          <Input id="chat" placeholder="Send a Message..." />
+        <form className="relative grid w-full" onSubmit={handleSubmit}>
+          <Input
+            id="chat"
+            placeholder="Send a Message..."
+            name="chat"
+            onChange={(e) => setInput(e.target.value)}
+            value={input}
+          />
           <Button
             variant="ghost"
             className="absolute right-0 aspect-square p-2"
+            type="submit"
           >
             <Image src="/send.svg" alt="Send" width={24} height={24} />
           </Button>

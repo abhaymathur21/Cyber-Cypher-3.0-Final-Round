@@ -4,11 +4,17 @@ import { searchProducts } from "@/lib/utils";
 import Link from "next/link";
 
 export default async function Home({
-  searchParams: { q },
+  searchParams: { q, id },
 }: {
-  searchParams: { q: string };
+  searchParams: { q?: string; id?: string };
 }) {
-  const data = q ? searchProducts(products, q) : products;
+  const data = q
+    ? searchProducts(products, q)
+    : id
+      ? products.filter((product) =>
+          id.split(",").map(parseInt).includes(product.id),
+        )
+      : products;
 
   return (
     <div className="grid max-h-full grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8 overflow-y-auto pr-4 [grid-auto-rows:1fr;]">

@@ -7,6 +7,9 @@ import user from "@/data/user.json";
 import Image from "next/image";
 import Link from "next/link";
 
+import ProductCard from "@/components/ProductCard";
+import type { Product } from "@/lib/types";
+
 const ProductPage = async ({ params: { id } }: { params: { id: string } }) => {
   const product = products.find((product) => product.id === parseInt(id));
   if (!product)
@@ -26,10 +29,10 @@ const ProductPage = async ({ params: { id } }: { params: { id: string } }) => {
 
   const recommendedProducts = recommended["recommended_items"].map(
     (id: string) => products.find((product) => product.id === parseInt(id)),
-  );
+  ) as Product[];
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-[2fr_3fr] gap-4 overflow-auto pr-4">
       <div>
         <Image
           src={`https://picsum.photos/seed/${product.id}/300/300`}
@@ -69,8 +72,16 @@ const ProductPage = async ({ params: { id } }: { params: { id: string } }) => {
             />
           )}
         </div>
-
-        <div></div>
+        {recommendedProducts.length > 0 && (
+          <div>
+            <h2 className="mt-8 text-2xl font-bold">Recommended Products</h2>
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4">
+              {recommendedProducts.slice(0, 3).map((product) => (
+                <ProductCard key={product.id} product={product} small />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
