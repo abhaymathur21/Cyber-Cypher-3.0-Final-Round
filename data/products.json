@@ -6,8 +6,7 @@
     "description": "The latest flagship smartphone with a stunning display and advanced camera features.",
     "category": "Electronics",
     "brand": "Brand A",
-    "stock": 50,
-    "Quantity": 48
+    "stock": 50
   },
   {
     "id": 2,

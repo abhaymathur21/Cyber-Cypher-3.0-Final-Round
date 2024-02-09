@@ -35,28 +35,31 @@
     <br />
     <br />
     <div id="resultContainer"></div>
+    <div id="recommendationContainer"></div>
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         // Event listener for the send string button
-        document.getElementById('sendStringButton').addEventListener('click', function() {
-            var inputString = document.getElementById('stringInput').value;
+        document
+          .getElementById("sendStringButton")
+          .addEventListener("click", function () {
+            var inputString = document.getElementById("stringInput").value;
 
-            fetch('http://localhost:5000/send_string', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ "string": inputString }), // Include string input in the request body
+            fetch("http://localhost:5000/llm_input", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ string: inputString }), // Include string input in the request body
             })
-            .then(response => response.text())
-            .then(result => {   
-                document.getElementById('resultContainer').innerText = result;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
+              .then((response) => response.text())
+              .then((result) => {
+                document.getElementById("resultContainer").innerText = result;
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+          });
 
         // Function to fetch product suggestions
         function fetchProductSuggestions(input) {
@@ -107,6 +110,29 @@
               .then((response) => response.text())
               .then((result) => {
                 document.getElementById("resultContainer").innerText = result;
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+
+            fetch("http://localhost:5000/recommend", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ product: inputProduct }),
+            })
+              .then((response) => response.json())
+              .then((result) => {
+                // Display recommended items
+                const resultContainer =
+                  document.getElementById("recommendationContainer");
+                resultContainer.innerHTML = "";
+                result.recommended_items.forEach((item) => {
+                  const itemDiv = document.createElement("div");
+                  itemDiv.textContent = `Recommended item ID: ${item}`;
+                  resultContainer.appendChild(itemDiv);
+                });
               })
               .catch((error) => {
                 console.error("Error:", error);
